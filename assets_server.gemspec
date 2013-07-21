@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = AssetsServer::VERSION
   spec.authors       = ["Jared Grippe"]
   spec.email         = ["jared@deadlyicon.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{compiles and serves static assets as well as renders templates on demand}
+  spec.summary       = %q{compiles and serves static assets as well as renders templates on demand}
   spec.homepage      = ""
   spec.license       = "MIT"
 

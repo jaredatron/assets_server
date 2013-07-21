@@ -1,6 +1,8 @@
 # AssetsServer
 
-TODO: Write a gem description
+  Compiles and serves static assets
+  Renders templates on demand
+
 
 ## Installation
 
@@ -18,7 +20,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'assets-server'
+    run AssetsServer.new(
+      # options
+    )
 
 ## Contributing
 
