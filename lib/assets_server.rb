@@ -14,38 +14,50 @@ require "sprockets"
 #
 class AssetsServer
 
-  OptionError = Class.new(ArgumentError)
-
   def initialize(options={})
-    @root = options.fetch(:root){ Bundler.root if defined? Bundler }
+    @root = options.fetch(:root){ Bundler.root if defined? Bundler } or \
+      raise ArgumentError, "expected root to be present. got #{@root.inspect}"
     @directories = options.fetch(:directories){ %w{javascripts stylesheets images} }
     @paths = options.fetch(:paths){
       @directories + @directories.map{|d| "vendor/#{d}" }
     }
+    @paths or raise ArgumentError, "expected paths to be present. got #{@paths.inspect}"
     @compass = options.fetch(:compass){ false }
     use_compass! if compass?
   end
 
   def call(env)
+    binding.pry
     sprockets_environment.call(env)
   end
 
   def root
-    @root or raise OptionError, "root option not set for #{self.class}"
+    sprockets_environment.root
   end
 
   def paths
-    @paths or raise OptionError, "paths option not set for #{self.class}"
+    sprockets_environment.paths
   end
 
   def compass?
     !!@compass
   end
 
+  def files
+    files = []
+    sprockets_environment.each_file do |path|
+      next if path.to_s.split('/').last =~ /^_/
+      relative_paths = sprockets_environment.paths.map{|p| path.relative_path_from(Pathname(p)) }
+      file = relative_paths.find{|p| !p.to_s.include? '../' }.to_s
+      files << file
+    end
+    files
+  end
+
   def sprockets_environment
     return @sprockets_environment if defined? @sprockets_environment
-    @sprockets_environment = Sprockets::Environment.new(root)
-    paths.each do |path|
+    @sprockets_environment = Sprockets::Environment.new(@root)
+    @paths.each do |path|
       @sprockets_environment.append_path path
     end
     @sprockets_environment
