@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = AssetsServer::VERSION
   spec.authors       = ["Jared Grippe"]
   spec.email         = ["jared@deadlyicon.com"]
-  spec.description   = %q{compiles and serves static assets as well as renders templates on demand}
-  spec.summary       = %q{compiles and serves static assets as well as renders templates on demand}
+  spec.description   = %q{compiles and serves static assets}
+  spec.summary       = %q{compiles and serves static assets}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,16 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+
+  spec.add_dependency "compass"
+  spec.add_dependency "sprockets"
+  spec.add_dependency "tilt"
+  spec.add_dependency "let"
+
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rack-test"
+  spec.add_development_dependency "shotgun"
+  spec.add_development_dependency "pry"
 end

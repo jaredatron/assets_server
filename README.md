@@ -1,8 +1,6 @@
 # AssetsServer
 
   Compiles and serves static assets
-  Renders templates on demand
-
 
 ## Installation
 
